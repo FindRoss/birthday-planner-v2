@@ -1,0 +1,87 @@
+:root {
+  --color-primary: #1050d6;
+  --color-primary-pastel: #b8c6e5;
+  /* --color-secondary: #fd8824; */
+  --color-secondary: #ffa85e;
+  --color-light: #fff4e9;
+  --color-muted: #6c757d;
+  --color-dark: #000000;
+  --color-input-border: #e4e4e4;
+
+  /* Minor Third */
+  --size-900: 2.488rem;
+  --size-800: 2.074rem;
+  --size-700: 1.728rem;
+  --size-600: 1.44rem;
+  --size-500: 1.2rem;
+  --size-400: 1rem;
+  --size-300: 0.833rem;
+  --size-200: 0.694rem;
+  --size-100: 0.579rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  --col-6: 50%;
+  --col-12: 100%;
+
+  /**
+    * Max width - 768px, 1024px
+    * Min width - 769px, 1024px 
+    */
+
+  --from-tablet: 500px;
+  --from-desktop: 1024px;
+}
+
+svg {
+  height: 50px;
+  width: auto;
+}
+
+/*
+ * Georgia for paragraphs. Lato for headings. And Arial for Menu??
+ **/
+
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  background: var(--color-light);
+}
+
+#root {
+  /* forcing the main area to be full height */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Lato", sans-serif;
+}
+
+h1 {
+  font-size: var(--size-900);
+}
+
+@media (max-width: 767px) {
+  h1 {
+    font-size: var(--size-700);
+  }
+}
+
+p {
+  margin-top: var(--size-300);
+}
+
+a {
+  text-decoration: none;
+}
+
+/* this is here because I dont know how to use Link with styled components */
+.dates-card__link {
+  color: var(--color-primary);
+}
