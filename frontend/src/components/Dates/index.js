@@ -1,5 +1,6 @@
 import Container from '../Container';
 import Loading from '../Loading';
+import Moment from 'react-moment';
 
 import { Section, CardsLayout, DateCard, CardDate, CardDateMonth, CardInfo, CardType, CardName, HeadingBox, HeadingParagraph } from './DatesElements';
 
@@ -7,32 +8,7 @@ import { Link } from "react-router-dom";
 
 function Dates({ dates, error }) {
 
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const isLoading = (dates.length === 0) && (error === true);
-
-
-  // this becomes a function i reuse in the dates loop - pass in the date!
-  if (dates.length !== 0) {
-    console.log(dates[0].startDate)
-
-    const oldStartDate = dates[0].startDate;
-
-    const newStartDate = new Date(oldStartDate);
-
-    // 1-31
-    const startDay = newStartDate.getDay();
-
-    // 0-11
-    const startMonth = newStartDate.getMonth();
-
-    console.log("The first occasion begins on: ", startDay, months[startMonth]);
-  }
-
-
-
-  // const firstDate = firstOne.getDate();
-
-  // console.log(firstDate);
 
   if (isLoading) {
     return <Loading />
@@ -43,7 +19,7 @@ function Dates({ dates, error }) {
       <Link to={`/dates/${date._id}`} key={i} className="dates-card__link">
         <DateCard>
           <CardDate>
-            <CardDateMonth>1 JAN</CardDateMonth>
+            <CardDateMonth><Moment format="DD MMM"></Moment></CardDateMonth>
           </CardDate>
           <CardInfo>
             <CardType>{date.occasion}</CardType>

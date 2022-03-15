@@ -20,7 +20,7 @@ function Navbar() {
             </LogoWrapper>
             <Menu>
               <MenuItem>
-                <Link to="/">Home</Link>
+                <Link to="/">Add</Link>
               </MenuItem>
               <MenuItem>
                 <Link to="/dates/">Dates</Link>

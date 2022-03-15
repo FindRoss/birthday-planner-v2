@@ -1,21 +1,19 @@
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Moment from 'react-moment';
 
 import Container from '../Container';
 import Button from '../Button';
 import Loading from '../Loading';
-import { Section, DateCard, DateType, HeadingLayout, Description } from './DateElements';
+import { Section, Body, DateCard, DateType, Heading, Description, ButtonBar } from './DateElements';
 
-import { Link } from "react-router-dom";
 
 function Date({ dates, handleDelete }) {
 
   let { topicId } = useParams();
 
-
   const isLoading = dates.length === 0;
   const data = dates.filter(date => date._id === topicId)[0];
-
-  console.log('dates in date.js', dates);
 
   if (isLoading) {
     return (
@@ -25,26 +23,35 @@ function Date({ dates, handleDelete }) {
     return (
       <Section>
         <Container>
-          <HeadingLayout>
-            <div className="headingLayout__box">
-              <DateType>{data.occasion}</DateType>
-              <h1>{data.name}</h1>
-            </div>
+          <Body>
+
             <DateCard className="headingLayout__box">
-              <div>1 January</div>
+              <Moment format="Do MMMM">{(data.startDate)}</Moment>
             </DateCard>
-          </HeadingLayout>
-          <Description>{data.description}</Description>
-          <Link to={`/dates/${topicId}/edit/`}>
-            <Button>
-              <button>EDIT DATE</button>
-            </Button>
-          </Link>
-          <Link to={'/dates/'}>
-            <Button>
-              <button onClick={() => handleDelete(topicId)}>Delete</button>
-            </Button>
-          </Link>
+
+            <Heading>
+              <div className="headingLayout__box">
+                <DateType>{data.occasion}</DateType>
+                <h1>{data.name}</h1>
+              </div>
+            </Heading>
+
+            <Description>{data.description}</Description>
+          </Body>
+
+          <ButtonBar>
+            <Link to={`/dates/${topicId}/edit/`}>
+              <Button>
+                <button>EDIT DATE</button>
+              </Button>
+            </Link>
+            <Link to={'/dates/'}>
+              <Button>
+                <button onClick={() => handleDelete(topicId)}>Delete</button>
+              </Button>
+            </Link>
+          </ButtonBar>
+
         </Container>
       </Section >
     )

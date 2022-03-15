@@ -9,7 +9,7 @@ import Form from './components/Form';
 import Dates from './components/Dates';
 import Date from './components/Date';
 import EditDate from './components/EditDate';
-import Container from './components/Container';
+
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -21,7 +21,6 @@ function App() {
     if (res.status !== 200) {
       setError(true);
     }
-
 
     setEvents(res.data);
     setError(false);
@@ -63,7 +62,7 @@ function App() {
           text: "",
           sort: ""
         })
-      }, 3500);
+      }, 2000);
     }
   }, [message])
 
@@ -101,7 +100,6 @@ function App() {
 
     const res = await deleteData(slug);
 
-
     if (res.status === 200) {
       setEvents(newArr);
 
@@ -112,8 +110,6 @@ function App() {
         sort: "success",
       });
     }
-
-
   }
 
   // Edit
@@ -142,21 +138,17 @@ function App() {
         text: response.data,
         sort: "success",
       });
-
     }
-
-
-
     // send user to dates
   };
 
-  const handleSetMessage = (errorMessage) => {
-    setMessage({
-      display: true,
-      text: errorMessage,
-      sort: "error",
-    });
-  };
+  // const handleSetMessage = (errorMessage) => {
+  //   setMessage({
+  //     display: true,
+  //     text: errorMessage,
+  //     sort: "error",
+  //   });
+  // };
 
 
   return (
@@ -164,13 +156,11 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/">
-          <Container>
-            <Form
-              dates={events}
-              message={message}
-              handleAdd={handleAdd}
-            />
-          </Container>
+          <Form
+            dates={events}
+            message={message}
+            handleAdd={handleAdd}
+          />
         </Route>
         <Route exact path="/dates/">
           <Dates

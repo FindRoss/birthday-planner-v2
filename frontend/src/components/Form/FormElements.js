@@ -1,22 +1,41 @@
 import styled from 'styled-components';
 import { devices } from '../../devices';
 
+export const Section = styled.section`
+  padding-top: var(--size-400);
+  padding-bottom: var(--size-400);
+  position: relative;
+  
+  /* body has flex column so this area can be full height */
+  flex: 1;
+`;
+
+
+export const FormWrapper = styled.div`
+  margin-top: var(--size-600);
+`;
+
 export const FormStyle = styled.form`
-  border-radius: var(--size-300);
+  border-radius: var(--radius-md);
   padding: var(--size-800) var(--size-600); 
   background: #fff;
-  transform: translateY(75px);
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%);
   font-family: Arial;
+  width: 100%;
 `;
 
 export const FormLayout = styled.div`
   @media ${devices.fromTablet} {
     display: flex; 
     flex-wrap: wrap;
-    // grid-template-columns: 1fr 1fr; 
-    // grid-column-gap: var(--size-500);
   }
+`;
+
+export const FormColThird = styled.div`
+  @media ${devices.fromTablet} {
+      flex: 33.33%;  
+    }
+    max-width: 100%;
 `;
 
 export const FormColHalf = styled.div`
@@ -35,6 +54,7 @@ export const FormRow = styled.div`
   margin-bottom: var(--size-200);
   width: 100%;
   padding: 0 6px;
+  margin-top: var(--size-600);
 `;
 
 export const InputLabel = styled.label`
@@ -49,36 +69,26 @@ export const Input = styled.input`
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-input-border);
   padding: var(--size-200) var(--size-200);
-
 `;
 
 // same as above except max-width
 export const Textarea = styled.textarea`
   width: 100%;
-  border-radius: 5px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-input-border); 
   padding: var(--size-200) var(--size-200);
   max-width: 100%;
 `;
 
-export const Select = styled.select`
-  width: 100%;
-  border-radius: var(--size-100);
-  background: var(--color-light); 
-  border: 1px solid #ccc; 
-  font-family: Arial; 
-  padding: var(--size-200) var(--size-200);
-  height: 50px;
-`;
 
 export const Message = styled.div`
-  border-radius: var(--size-300);
-  padding: var(--size-300) var(--size-100);
-  background: #fff;
+  border-radius: var(--radius-md);
+  padding: var(--size-400) var(--size-700);
+  background: #ffffff;
   position: absolute;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%);
+  top: 1rem;
   left: 1rem;
-  right: 1rem;
-  top: 0.7rem;
+  display: flex;
+  align-items: center;
 `;
-
