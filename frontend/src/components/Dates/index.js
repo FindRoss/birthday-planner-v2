@@ -15,19 +15,23 @@ function Dates({ dates, error }) {
   }
 
   const datesOutput = (
-    dates.map((date, i) => (
-      <Link to={`/dates/${date._id}`} key={i} className="dates-card__link">
-        <DateCard>
-          <CardDate>
-            <CardDateMonth><Moment format="DD MMM"></Moment></CardDateMonth>
-          </CardDate>
-          <CardInfo>
-            <CardType>{date.occasion}</CardType>
-            <CardName>{date.name}</CardName>
-          </CardInfo>
-        </DateCard>
-      </Link>
-    ))
+    dates.map(date => {
+      // Why can I not find the date in here?
+      console.log(date.startDate);
+      return (
+        <Link to={`/dates/${date._id}`} key={date._id} className="dates-card__link">
+          <DateCard>
+            <CardDate>
+              <CardDateMonth><Moment format="DD MMM">{date.startDate}</Moment></CardDateMonth>
+            </CardDate>
+            <CardInfo>
+              <CardType>{date.occasion}</CardType>
+              <CardName>{date.name}</CardName>
+            </CardInfo>
+          </DateCard>
+        </Link>
+      )
+    })
   );
 
   const noDatesOutput = (
@@ -57,5 +61,5 @@ function Dates({ dates, error }) {
   )
 }
 
-export default Dates
+export default Dates;
 

@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useParams } from "react-router-dom";
 
-import Container from '../Container';
 import Loading from '../Loading';
 import Form from '../Form';
 
@@ -20,16 +19,14 @@ function EditDate({ dates, handleEdit, message }) {
   } else {
     return (
       <>
-        <Container>
-          <Form
-            type="edit"
-            data={data}
-            dates={dates}
-            handleEdit={handleEdit}
-            slug={topicId}
-            message={message}
-          />
-        </Container>
+        <Form
+          type="edit"
+          data={data}
+          dates={dates}
+          handleEdit={handleEdit}
+          slug={topicId}
+          message={message}
+        />
       </>
     )
   }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../Button';
-import { Section, FormWrapper, FormStyle, FormLayout, FormColThird, FormColFull, FormRow, InputLabel, Input, Textarea, Message } from './FormElements';
+import { Section, FormWrapper, FormStyle, FormLayout, FormColThird, FormColFull, FormRow, InputLabel, Input, Textarea } from './FormElements';
 import Container from '../Container';
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const Form = ({ data, message, handleAdd, handleEdit, type, slug }) => {
+const Form = ({ data, handleAdd, handleEdit, type, slug }) => {
   const [name, setName] = useState('');
   const [occasion, setOccasion] = useState('');
   const [description, setDescription] = useState('');
@@ -146,8 +146,6 @@ const Form = ({ data, message, handleAdd, handleEdit, type, slug }) => {
           </FormStyle>
         </FormWrapper>
       </Container>
-      {/* {message.display ? <Message>{message.text}</Message> : null} */}
-      <Message>Fooobar foo fo</Message>
     </Section>
   )
 }

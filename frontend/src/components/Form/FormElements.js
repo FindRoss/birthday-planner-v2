@@ -81,14 +81,4 @@ export const Textarea = styled.textarea`
 `;
 
 
-export const Message = styled.div`
-  border-radius: var(--radius-md);
-  padding: var(--size-400) var(--size-700);
-  background: #ffffff;
-  position: absolute;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%);
-  top: 1rem;
-  left: 1rem;
-  display: flex;
-  align-items: center;
-`;
+

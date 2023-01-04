@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
 import axios from 'axios';
 
@@ -9,22 +13,29 @@ import Form from './components/Form';
 import Dates from './components/Dates';
 import Date from './components/Date';
 import EditDate from './components/EditDate';
-
+import Message from './components/Message';
 
 function App() {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(true);
+  const [message, setMessage] = useState({
+    display: false,
+    text: "This is really inspiring dummy text",
+    type: "success"
+  });
+
 
   // GET events
   const getData = async () => {
     const res = await axios.get('http://localhost:5000/events');
-    if (res.status !== 200) {
-      setError(true);
-    }
-
+    if (res.status !== 200) setError(true);
     setEvents(res.data);
     setError(false);
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   // POST event
   const addData = async (data) => await axios.post('http://localhost:5000/events/add', data);
@@ -35,7 +46,8 @@ function App() {
   // DELETE event 
   const deleteData = async (slug) => await axios.delete(`http://localhost:5000/events/${slug}`)
 
-
+  // Good article on how to do this as a custom Hook. Its cool!
+  // https://www.joshwcomeau.com/react/persisting-react-state-in-localstorage/
   const updateLocalData = (updatedDate, slug) => {
     const dateIndex = events.findIndex(event => event._id === slug);
     const filterEvents = events.filter(event => event._id !== slug);
@@ -43,32 +55,7 @@ function App() {
     setEvents(filterEvents);
   }
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const [message, setMessage] = useState({
-    display: false,
-    text: "",
-    sort: "",
-  });
-
-  // Remove the message after x seconds
-  useEffect(() => {
-    if (message.display === true && message.sort === "success") {
-      setTimeout(() => {
-        setMessage({
-          display: false,
-          text: "",
-          sort: ""
-        })
-      }, 2000);
-    }
-  }, [message])
-
-
   const handleAdd = async (name, occasion, description, startDate) => {
-
     const dateObj = {
       username: "Rossco",
       name,
@@ -76,17 +63,12 @@ function App() {
       description,
       startDate
     }
-
     // add event to the backend
     const response = await addData(dateObj);
-
     dateObj._id = response.data._id;
-
     // add event to the local data
     const newArr = [...events, dateObj];
-
     setEvents(newArr);
-
     setMessage({
       display: true,
       text: "A new date has been added!",
@@ -114,7 +96,6 @@ function App() {
 
   // Edit
   const handleEdit = async (name, occasion, description, slug) => {
-
     // New object
     const dateObj = {
       _id: slug,
@@ -123,23 +104,23 @@ function App() {
       occasion,
       description
     }
-
     // Post update to API. 
     const response = await editData(dateObj, slug);
-
     if (response.status === 200) {
-
       // here update the local state. 
       updateLocalData(dateObj, slug);
-
       // success message
       setMessage({
         display: true,
         text: response.data,
         sort: "success",
       });
+      setTimeout(() => {
+        console.log('successfully sent. Why not redirect.');
+        window.location.replace('/dates');
+      }, 2000)
     }
-    // send user to dates
+
   };
 
   // const handleSetMessage = (errorMessage) => {
@@ -152,38 +133,16 @@ function App() {
 
 
   return (
-    <Router>
+    <BrowserRouter>
       <Navbar />
-      <Switch>
-        <Route exact path="/">
-          <Form
-            dates={events}
-            message={message}
-            handleAdd={handleAdd}
-          />
-        </Route>
-        <Route exact path="/dates/">
-          <Dates
-            dates={events}
-            error={error}
-          />
-        </Route>
-        <Route exact path="/dates/:topicId">
-          <Date
-            dates={events}
-            error={error}
-            handleDelete={handleDelete}
-          />
-        </Route>
-        <Route path="/dates/:topicId/edit/">
-          <EditDate
-            dates={events}
-            handleEdit={handleEdit}
-            message={message}
-          />
-        </Route>
-      </Switch>
-    </Router>
+      <Routes>
+        <Route exact path="/" element={<Form dates={events} message={message} handleAdd={handleAdd} />} />
+        <Route exact path="/dates/" element={<Dates dates={events} error={error} />} />
+        <Route exact path="/dates/:topicId" element={<Date dates={events} error={error} handleDelete={handleDelete} />} />
+        <Route path="/dates/:topicId/edit/" element={<EditDate dates={events} handleEdit={handleEdit} message={message} />} />
+      </Routes>
+      {message.display ? <Message message={message} setMessage={setMessage} /> : null}
+    </BrowserRouter>
   );
 }
 
