@@ -133,7 +133,7 @@ function App() {
 
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Navbar />
       <Routes>
         <Route exact path="/" element={<Form dates={events} message={message} handleAdd={handleAdd} />} />
